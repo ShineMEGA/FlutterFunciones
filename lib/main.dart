@@ -12,8 +12,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  TextEditingController _controller = TextEditingController();
   void saludar() {
-    print('Hola Mundo');
+    var edad = int.tryParse(_controller.text);
+    if (edad != null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Hola, tienes $edad años'),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Edad no válida'),
+      ));
+    }
   }
 
   @override
@@ -27,11 +37,22 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Flutter Demo'),
         ),
-        body: Center(
-            child: ElevatedButton(
-          onPressed: saludar,
-          child: const Text('Saludar'),
-        )),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: [
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                hintText: 'Edad',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: saludar,
+              child: const Text('Saludar'),
+            ),
+          ]),
+        ),
       ),
     );
   }
