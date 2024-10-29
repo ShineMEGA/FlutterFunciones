@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (edad != null) {
      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          backgroundColor: Colors.green,
           content: Text('Hola, tengo $edad años'),
         ),
       );
